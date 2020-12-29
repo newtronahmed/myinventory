@@ -10,7 +10,8 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+     
+      {{-- @yield('scripts') --}}
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -70,10 +71,17 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main class='container'>
+           @if (session('success'))
+             <div class="alert alert-success">
+                {{session()->get('success')}}
+            </div>
+            @endif
                 @yield('content')
-                @include('categoryModal')
         </main>
     </div>
+  <script src="{{ asset('js/app.js') }}" ></script>
+  @yield('scripts')
 </body>
+
 </html>

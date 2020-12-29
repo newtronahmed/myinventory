@@ -13,3 +13,6 @@ require('./bootstrap');
  */
 
 require('./components/Example');
+// $(document).ready(function(){
+// 	console.log('jquery loaded from app Js')
+// })

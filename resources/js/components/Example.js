@@ -1,175 +1,296 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import ReactDOM from 'react-dom';
+import useError from './useError'
 
 function Example() {
     // const [formData,setFormData] = useState({
 
     // })
    const [formInput,setFormInput] = useState({ 
-    orderDate:'',
     customerName:'',
-    item:'',
-    totalQuantity:'',
-    Quantity:0,
-    total:0,
-    price:4,
+    products: [ {id:1,item:'',price:0,total:0,quantity:0,totalQuantity:0} ],
     subtotal:0,
-    paid:'',
+    paid:0,
     netTotal:0,
-    gst:'',
-    discount:'',
-    product: [{title:'',price:0,total:0,quantity:0,}],
+    discount:0,
+    due:0,
+    address:'',
+    phone:'',
+    payment_method:'',
    })
-   // componentDidMount(){
-   //     // get list of products from database
+   const [setErrors,renderErrorFor] = useError([])
+   // const [errors,setErrors] = useState([])
+   const [loading,setLoading] = useState(false)
 
-   // }
+  const [productSelection,setProductSelection] = useState([])
+   useEffect(()=>{
+     getProductsList()
+   },[])
+   const getProductsList=()=>{
+     setLoading(true)
+      axios.get('/products')
+      .then(response=>{
+      setProductSelection([...response.data])
+      setLoading(false)
+      })
+      .catch(err=>{
+        setErrors([...errors,err.message])
+      })
+   }
+
+
+   useEffect(()=>{
+      let subtotal = formInput.products.map(each=>{
+          return each.total
+         }).reduce((acc,ind)=>{
+          return acc+ind
+         },0)
+         let netTotal = subtotal;
+       let paid = formInput.paid
+        if(discount){
+          let discount = parseInt(formInput.discount)
+         let perCentDiscount = discount / 100
+          netTotal = subtotal - (subtotal*perCentDiscount)
+          netTotal = parseFloat(netTotal).toFixed(2)
+          console.log(netTotal)
+         }
+
+        let due = parseFloat(netTotal-paid).toFixed(2)
+      setFormInput({...formInput,subtotal,netTotal,discount,due})
+         
+   },[formInput.products,formInput.discount,formInput.paid])
 
    const handleChange = (e) =>{
-        e.preventDefault()
+        
     const {name,value} = e.target
         setFormInput({...formInput,[name]:value})   
+
    }
-    const submitHandler =(e)=>{
+   const handleTableChange =  (e,id) =>{
+    e.preventDefault()
+    // console.log(e.target.type)
+ 
+    let {name,value} = e.target;
+    // console.log(value)
+    // parse to numbers before
+    if(e.target.type==='number'){
+      value = parseInt(value)
+    }
+    formInput.products.map( async (product,i)=>{
+      // console.log(product.id , id)
+
+      if(product.id === id){
+    
+     let products = [...formInput.products]
+     let product = {...products[i]}
+     product[name]= value
+     // setFormInput({...formInput,products: products})
+         if(e.target.type==='select-one' && value !=='choose'){
+          // console.log(products[i].item)
+          // console.log('ama live')
+          
+          const response = await axios.get('/products/'+value) 
+         
+          product['price']= response.data.price
+          product['totalQuantity']= parseInt(response.data.quantity) 
+         }
+         product['total'] = (product['price']*product['quantity'])
+         products[i] = product
+        setFormInput({...formInput,products})
+    // setFormInput({...formInput,products: [products[i][name]:value ,...products] })  
+      }
+ 
+    })
+
+    
+   }
+
+    const submitHandler = async(e)=>{
         e.preventDefault()
+        console.log(formInput)
+        try{
+          const res = await axios.post('/neworder',formInput)
+            if(res.status===200) {
+             let hashId = res.data.message
+             // console.log(res.data)
+             window.location.href= `/download-pdf/${hashId}`
+           }
+          
+        }
+        catch(err){
+          // setErrors([...errors,err])
+          setErrors(err.response.data.errors)
+        }
+       
+
+      
     }
     const add = ()=>{
-     let table= document.getElementById('table') 
-   
-     let row= table.insertRow(-1)
-     let one = row.insertCell(0)
-     let two = row.insertCell(1)
-     let three = row.insertCell(2)
-     let four = row.insertCell(3)
-     let five = row.insertCell(4)
-     one.innerHTML = `<div className="form-row align-items-center"><div className="col-auto my-1">
-     <label className="mr-sm-2 sr-only" htmlFor="inlineFormCustomSelect">Preference</label><select className="custom-select mr-sm-2" 
-     id="inlineFormCustomSelect"><option >Choose...</option><option value="1">One</option><option value="2">Two</option>
-     <option value="3">Three</option></select></div></div>`
-     two.innerHTML = '<input type="number" className="form-control form-control-sm" id="inputEmail3" />'
-     three.innerHTML='<input type="number" className="form-control form-control-sm" id="inputEmail3" />'
-     four.innerHTML='<input type="number" readOnly value="4000" className="form-control form-control-sm" id="inputEmail3" />'
-     five.innerHTML='<input type="number" readOnly value="50000" className="form-control form-control-sm" id="inputEmail3" />'
+      // add new empty product to products arrray 
+      let newId = formInput.products.length + 1;
+     setFormInput({...formInput,products: [...formInput.products,{id:newId,item:'',price:0,total:0,quantity:0,totalQuantity:0}]})
     }
     const remove =(e)=>{
         e.preventDefault()
-        let table = document.getElementById('table')
-        table.deleteRow(-1)
+       // remove last product object from array
+        let products = [...formInput.products]
+         products.pop()
+        setFormInput({...formInput,products:products})
     }
     
-    let details = 
+   
+    // const {orderDate,discount,customerName,item,totalQuantity,Quantity,price ,paid,netTotal,gst,subtotal} = formInput
+    let {orderDate,discount,customerName,paid,netTotal,subtotal,due,address,phone} = formInput
+ 
+     let details = 
     [
         {
             title:'Subtotal',
-            name:'subtotal'
+            name:'subtotal',
+            value:subtotal,
         },
-        {
-            title:'GST%',
-            name:'gst'
-        },
+        // {
+        //     title:'GST%',
+        //     name:'gst'
+        // },
         {
             title:'Discount',
-            name:'discount'
+            name:'discount',
+            value:discount,
         },
         {
             title:'NetTotal',
-            name:'netTotal'
+            name:'netTotal',
+            value:netTotal
         },
         {
             title:'Paid',
-            name:'paid'
+            name:'paid',
+            value:paid,
         },
         {
             title:'Due',
-            name:'due'
+            name:'due',
+            value:due
         },
    
     ]
-    const {orderDate,discount,customerName,item,totalQuantity,Quantity,price ,paid,netTotal,gst,subtotal} = formInput
-    let total = price * Quantity
+    // const {item,price,quantity,totalQuantity,id} = formInput.product
+    // let total = price * Quantity
 
     // for (i=0,i<table.row.lenght)
     return (
-        <form onSubmit={submitHandler}>
-<div className="card w-100">
-  <div className="card-header">
-    Featured
-  </div>
-<div className='px-3'>
-      <div className="form-group row">
-        <label htmlFor="inputEmail3" className="col-sm-2 col-form-label">Order</label>
-        <div className="col-sm-8">
-          <input type="date" name='orderDate' onChange={handleChange} value={orderDate} className="form-control " id="inputEmail3" />
+    <form onSubmit={submitHandler}>
+      <div className="card w-100">
+        <div className="card-header">
+          Featured
         </div>
-      </div>
-      <div className="form-group row">
-        <label htmlFor="inputEmail3"  className="col-sm-2 col-form-label">Customer Name</label>
-        <div className="col-sm-8">
-          <input type="text" name='customerName' onChange={handleChange} value={customerName} className="form-control" id="inputEmail3" />
-        </div>
-      </div>
-          <table className="table" id='table' style={{overflow:'auto'}}>
-  <thead>
-    <tr>
-      <th scope="col">#item </th>
-      <th scope="col">Total Quantity</th>
-      <th scope="col">Quantity</th>
-      <th scope="col">Price</th>
-      <th scope="col">Total</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>
-        <div className="form-group">
-           
-            <select className="form-control form-control-sm" value={item} name='item' onChange={handleChange} 
-            id="exampleFormControlSelect1">
-              <option defaultValue>chooose</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
-         </select>
-  </div>
-      </td>
-      <td>
-            <input type="number" name='totalQuantity' onChange={handleChange} value={totalQuantity} 
-            className="form-control form-control-sm" id="inputEmail3" />
-      </td>
-      <td>
-            <input type="number" name='Quantity'  onChange={handleChange} value={Quantity} 
-            className="form-control form-control-sm" id="inputEmail3" />
-      </td>
-      <td className='bg-secondary'>
-         <input type="number" readOnly  name='price'  onChange={handleChange} value={price}
-          className="form-control form-control-sm" id="inputEmail3" />
-      </td>
-      <td>
-         <input type="number" readOnly name='total' onChange={handleChange}
-          value={total} className="form-control form-control-sm" id="inputEmail3" />
-      </td>
-    </tr>
-    
-  </tbody>
-</table>
-
-<p className='mx-auto'><button className='w-30 btn btn-success text-center' onClick={add}>Add</button><button onClick={remove} className='w-30 btn btn-success text-center'>Remove</button></p>
-    {
-        details.map((detail,ind)=>{
-            return (
-                <div className="form-group row" key={ind}>
-                <label htmlFor="inputEmail3" className="col-sm-2 col-form-label">{detail.title}</label>
-                <div className="col-sm-8">
-                  <input type="text" className="form-control" name={detail.name} onChange={handleChange} id="inputEmail3" />
-                </div>
+      <div className='p-3'>
+            <div className="form-group row">
+              <label htmlFor="inputEmail3"  className="col-sm-2 col-form-label">Customer Name</label>
+              <div className="col-sm-8">
+                <input type="text" name='customerName' onChange={handleChange} value={customerName} className="form-control" id="inputEmail3" />
+              {renderErrorFor('customerName')}
+              </div>
             </div>
-                )
-        })
-    }
-    
-</div>
-</div>
+            <div className="form-group row">
+              <label htmlFor="inputEmail3"  className="col-sm-2 col-form-label">Address</label>
+              <div className="col-sm-8">
+                <input type="text" name='address' onChange={handleChange} value={address} className="form-control" id="inputEmail3" />
+              </div>
+            </div>
+            <div className="form-group row">
+              <label htmlFor="inputEmail3"  className="col-sm-2 col-form-label">Phone Number</label>
+              <div className="col-sm-8">
+                <input type="text" name='phone' onChange={handleChange} value={phone} className="form-control" id="inputEmail3" />
+                {renderErrorFor('phone')}
+              </div>
+            </div>
+
+                <table className="table" id='table' style={{overflow:'auto'}}>
+        <thead>
+          <tr>
+            <th scope="col">item </th>
+            <th scope="col">Total Quantity</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Price</th>
+            <th scope="col">Total</th>
+          </tr>
+        </thead>
+        <tbody>
+              {formInput.products.map((product,i)=>{
+                const {item,price,quantity,totalQuantity,id,total} = product
+               // total = price * quantity
+
+
+
+               return (<tr key={i} >
+              
+            <td>
+              <div className="form-group">
+                 
+                  { loading? <div className="spinner-border text-info" role="status"><span className="sr-only">Loading...</span></div>: (<select className="form-control form-control-sm" value={item} name='item' onChange={(e)=>handleTableChange(e,id)} 
+                  id="exampleFormControlSelect1">
+
+                  <option >choose</option>
+                    {  productSelection.map(each=>{
+                      return <option key={each.id}   value={each.id}>{each.name}</option>
+                    })}
+               </select>)}
+        </div>
+            </td>
+            <td>
+                  <input type="number" name='totalQuantity' readOnly onChange={(e)=>handleTableChange(e,id)} value={totalQuantity} 
+                  className="form-control form-control-sm" id="inputEmail3" />
+            </td> 
+            <td>
+                  <input type="number" name='quantity' max={totalQuantity}  onChange={(e)=>handleTableChange(e,id)} value={quantity} 
+                  className="form-control form-control-sm" id="inputEmail3" />
+            </td>
+            <td className='bg-secondary'>
+               <input type="number" readOnly  name='price'  onChange={(e)=>handleTableChange(e,id)} value={price}
+                className="form-control form-control-sm" id="inputEmail3" />
+            </td>
+            <td>
+               <input type="number" readOnly name='total' onChange={(e)=>handleTableChange(e,id)}
+                value={total} className="form-control form-control-sm" id="inputEmail3" />
+            </td>
+          </tr>)
+
+                })}
+
+          
+        </tbody>
+      </table>
+
+      <p className='mx-auto'><button type='button' className='w-30 btn btn-info text-center' onClick={add}>Add</button><button onClick={remove} type='button' className='w-30 btn btn-info text-center'>Remove</button></p>
+          {
+              details.map((detail,ind)=>{
+                  return (
+                      <div className="form-group row" key={ind}>
+                      <label htmlFor="inputEmail3" className="col-sm-2 col-form-label">{detail.title}</label>
+                      <div className="col-sm-8">
+                        <input type="text" className="form-control" name={detail.name} onChange={handleChange} id="inputEmail3" value={detail.value} />
+                      </div>
+                  </div>
+                      )
+              })
+          }
+          <div className="form-group row">
+              <label htmlFor="inputEmail3"  className="col-sm-2 col-form-label">Payment Method</label>
+              <div className="col-sm-8">
+                 <label className="radio-inline mx-2"><input type="radio"  name="payment_method" onChange={handleChange}  value='cheque' />Cheque</label>
+                <label className="radio-inline mx-2"><input type="radio"  name="payment_method" onChange={handleChange}  value='cash' />Cash</label>
+               <label className="radio-inline mx-2"><input type="radio" name="payment_method" onChange={handleChange}  value='credit_card' />Credit Card</label>
+              </div>
+              {renderErrorFor('payment_method')}
+            </div>
+      </div>
+      <div className='card-footer'>
+        <button type='submit' className='btn btn-success'>submit</button>
+      </div>
+      </div>
+      
 </form> 
         
     );

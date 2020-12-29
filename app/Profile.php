@@ -11,7 +11,10 @@ class Profile extends Model
     	return $this->belongsTo('\App\User');
     }
     public function profileImage(){
-    	$imagePath = $this->image ? $this->image :'noImage_1601509481.png';
-    	return '/storage/profile_images/'.$imagePath;
+    	$imagePath = $this->image ? $this->image :'reactlaravel_1608421945.jpeg';
+    	// $imagePath =  '/storage/profile_images/'.$imagePath;
+    	// dd($imagePath);
+    	// dd(asset('/storage/profile_images/noImage_1601421724.png'));
+    	return '/storage/profileImages/'.$imagePath;
     }
 }

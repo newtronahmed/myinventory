@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 <div class="container">
-	<form action="/profile/edit" enctype="multipart/form-data" method="post">
+	<form action="{{route('profile.update')}}" enctype="multipart/form-data" method="post">
 		@csrf
 		@method('PATCH')
 		@if($errors->count()>0)

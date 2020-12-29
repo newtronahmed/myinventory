@@ -6,7 +6,7 @@
         <!-- left sidebar -->
         <div class="col-md-4 shadow ">
             <div class="image d-flex justify-content-center">
-                <img src="{{$profile->profileImage()}}" alt='cey' loading='lazy' class=" w-100 h-100 " style='max-height: 400px;' >
+                <img src='{{$profile->profileImage()}}' alt = 'profile image' class=" w-100  " style='height: 400px;' >
             </div>
             <!-- Profile -->
             <div>
@@ -14,7 +14,7 @@
                 <div class="shadow-sm p-2 mb-1">Name: {{$profile->user->name}}</div>
                 <div class="shadow-sm p-2 mb-1">Description: {{$profile->description}}</div>
                 <div class="shadow-sm p-2 mb-1">Description: {{$profile->user->email}}</div>
-                <a href="/profile/edit" class="btn btn-primary btn-sm mb-2">Edit Profile +</a>
+                <a href="{{route('profile.edit')}}" class="btn btn-primary btn-sm mb-2">Edit Profile +</a>
                 @if (session('status'))
                  <div class="alert alert-success">
                     {{$value =session()->get('status')}}
@@ -26,10 +26,10 @@
             <!-- Right Main bar-->
         <div class="col-md-8 "  >
             <div class="bg-white  h-100" >
-                <div class="display-4">Welcome Back</div>
+                <div class="display-4">Welcome Back {{$profile->user->name}}</div>
                 <div class="mr-auto" >
                 <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</div> 
-                <a href="/neworders" class="btn btn-primary"> New orders</a>
+                <a href="{{route('neworders')}}" class="btn btn-primary"> New orders</a>
                 
             </div> 
             </div>
@@ -37,6 +37,7 @@
             
         </div>
     </div>
+   
     <div class="row py-3">
         <!-- Categories --> 
             <div class="col-md-4">
@@ -46,7 +47,7 @@
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p>
                     <div class="d-flex ">
                         <button class="btn btn-primary btn-sm mx-2 rounded-0 " data-toggle="modal" data-target="#categoryModal">add</button>
-                        <button class="btn btn-primary btn-sm mx-2 rounded-0 ">Manage</button>
+                        <a class="btn btn-primary btn-sm mx-2 rounded-0 " href="{{route('categories.manage')}}">Manage</a>
                         </div>
                     </div>
                 </div>
@@ -58,7 +59,7 @@
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p>
                     <div class="d-flex ">
                         <button class="btn btn-primary btn-sm mx-2 rounded-0 " data-toggle='modal' data-target='#brandModal'>add</button>
-                        <button class="btn btn-primary btn-sm mx-2 rounded-0 ">Manage</button>
+                       <a class="btn btn-primary btn-sm mx-2 rounded-0 " href="{{route('brands.manage')}}">Manage</a>
                         </div>
                     </div>
                 </div>
@@ -71,13 +72,14 @@
                     <div class="d-flex ">
                         <button class="btn btn-primary btn-sm mx-2 rounded-0  " data-toggle='modal' data-target='#productModal'>add</button>
                         
-                        <button class="btn btn-primary btn-sm mx-2 rounded-0 ">Manage</button>
+                        <a class="btn btn-primary btn-sm mx-2 rounded-0 " href="{{route('products.manage')}}">Manage</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 </div>
+@include('modals.categoryModal')
 @endsection
 
  

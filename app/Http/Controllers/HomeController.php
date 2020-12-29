@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Profile;
+use App\Category;
+use App\Brand;
 
 class HomeController extends Controller
 {
@@ -25,7 +27,9 @@ class HomeController extends Controller
     public function index()
     {
         $profile = auth()->user()->profile;
-        return view('home',compact('profile'));
+        $categories = Category::all();
+        $brands = Brand::all();
+        return view('home',compact('profile','categories','brands'));
     }
     public function edit(){
         $profile = auth()->user()->profile;
@@ -45,9 +49,9 @@ class HomeController extends Controller
         // GET extension 
         $extension = $request->file('image')->getClientOriginalExtension();
         // filename to store
-        $filenameToStore = $filename.'_'.time().'.'.$extension;
+        $filenameToStore = $filename.time().'.'.$extension;
         // get Image path
-        $path = $request->file('image')->storeAs('public/profile_images',$filenameToStore);
+        $path = $request->file('image')->storeAs('public/profileImages',$filenameToStore);
 
 
        } 
@@ -57,6 +61,7 @@ class HomeController extends Controller
            $profile ->title = $validated['title'] ;
            if($request->hasFile('image')){
             $profile ->image = $filenameToStore;
+            // $profile->save();
            }
            $profile->save();
        // auth()->user()->profile()->update([
@@ -67,5 +72,6 @@ class HomeController extends Controller
 
         return redirect('/')->with(['status'=>'successfully updated my bros']);
     }
+
 
 }
