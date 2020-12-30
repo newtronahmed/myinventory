@@ -36,4 +36,6 @@ Route::get('/category/manage','CategoriesController@edit')->name('categories.man
 Route::patch('/category/edit/{category}','CategoriesController@update');
 Route::get('/brand/manage','BrandsController@edit')->name('brands.manage');
 Route::patch('/brand/edit/{brand}','BrandsController@update');
+Route::get('/category/delete/{category}','CategoriesController@delete');
+Route::get('/brand/delete/{brand}','BrandsController@delete');
 

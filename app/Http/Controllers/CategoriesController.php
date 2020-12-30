@@ -30,4 +30,9 @@ class CategoriesController extends Controller
     	session()->flash('success','category updated successfully');
     	return redirect('/category/manage');
     }
+    public function delete(Category $category){
+            $category->delete();
+            session()->flash('category has been deleted');
+            return redirect()->back();
+    }
 }

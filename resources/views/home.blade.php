@@ -13,7 +13,7 @@
                 <div class="lead">Profile</div>
                 <div class="shadow-sm p-2 mb-1">Name: {{$profile->user->name}}</div>
                 <div class="shadow-sm p-2 mb-1">Description: {{$profile->description}}</div>
-                <div class="shadow-sm p-2 mb-1">Description: {{$profile->user->email}}</div>
+                <div class="shadow-sm p-2 mb-1">Email: {{$profile->user->email}}</div>
                 <a href="{{route('profile.edit')}}" class="btn btn-primary btn-sm mb-2">Edit Profile +</a>
                 @if (session('status'))
                  <div class="alert alert-success">

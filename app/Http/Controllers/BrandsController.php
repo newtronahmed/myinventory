@@ -32,4 +32,9 @@ class BrandsController extends Controller
     	session()->flash('success','Brand updated successfully');
     	return redirect('/brand/manage');
     }
+    public function delete(Brand $brand){
+    	$brand->delete();
+    	session()->flash('success','Brand has been deleted');
+    	return redirect()->back();
+    }
 }
