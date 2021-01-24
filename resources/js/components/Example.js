@@ -48,6 +48,8 @@ function Example() {
          let netTotal = subtotal;
        let paid = formInput.paid
         if(discount){
+
+
           let discount = parseInt(formInput.discount)
          let perCentDiscount = discount / 100
           netTotal = subtotal - (subtotal*perCentDiscount)
@@ -112,7 +114,7 @@ function Example() {
           const res = await axios.post('/neworder',formInput)
             if(res.status===200) {
              let hashId = res.data.message
-             // console.log(res.data)
+             console.log(res.data)
              window.location.href= `/download-pdf/${hashId}`
            }
           

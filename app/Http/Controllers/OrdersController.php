@@ -67,13 +67,13 @@ class OrdersController extends Controller
 
     	return response()->json(['message'=>$order->hash_id,'order'=>$order],200);
     }
-    public function show ($hash_id){
-    	$data = Order::where('hash_id',$hash_id)->first();
+    public function show ($hash_Id){
+    	$data = Order::where('hash_id',$hash_Id)->first();
     	// dd($data);
     	return view('download.downloadPDF')->with('data',$data);
     }
-    public function createPDF($hash_id){
-    	$data = Order::where('hash_id',$hash_id)->first();
+    public function createPDF($hash_Id){
+    	$data = Order::where('hash_id',$hash_Id)->first();
     	view()->share('data',$data);
     	$pdf = PDF::loadView('download.PDF');
     	return $pdf->download('order-success.pdf');

@@ -28,8 +28,7 @@ Route::post('/neworder','ordersController@store')->name('order.store');
 Route::get('/products/manage','ProductsController@edit')->name('products.manage');
 Route::get('/products','ProductsController@index');
 Route::get('/products/{id}','ProductsController@show');
-Route::get('/download-pdf/{hash_Id}','ordersController@show');
-Route::get('/download/pdf/{hash_Id}','ordersController@createPDF');
+Route::get('/download-pdf/{hash_Id}','ordersController@show')->name('download.show');
 Route::patch('/products/edit/{product}','ProductsController@update')->name('products.update');
 Route::get('/products/delete/{product}','ProductsController@trash');
 Route::get('/category/manage','CategoriesController@edit')->name('categories.manage');
@@ -38,4 +37,5 @@ Route::get('/brand/manage','BrandsController@edit')->name('brands.manage');
 Route::patch('/brand/edit/{brand}','BrandsController@update');
 Route::get('/category/delete/{category}','CategoriesController@delete');
 Route::get('/brand/delete/{brand}','BrandsController@delete');
+Route::get('/download/pdf/{hash_Id}','ordersController@createPDF');
 
