@@ -111,7 +111,7 @@ function Example() {
         e.preventDefault()
         console.log(formInput)
         try{
-          const res = await axios.post('/api/neworder',formInput)
+          const res = await axios.post('/neworder',formInput)
             if(res.status===200) {
              let hashId = res.data.message
              console.log(res.data)
