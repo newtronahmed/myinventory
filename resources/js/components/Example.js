@@ -111,7 +111,7 @@ function Example() {
         e.preventDefault()
         console.log(formInput)
         try{
-          const res = await axios.post('/neworder',formInput)
+          const res = await axios.post('/api/neworder',formInput)
             if(res.status===200) {
              let hashId = res.data.message
              console.log(res.data)
@@ -182,7 +182,7 @@ function Example() {
 
     // for (i=0,i<table.row.lenght)
     return (
-    <form onSubmit={submitHandler}>
+    <form onSubmit={submitHandler} method='POST'>
       <div className="card w-100">
         <div className="card-header">
           Featured

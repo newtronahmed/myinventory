@@ -24,7 +24,6 @@ Route::get('/neworders','OrdersController@create')->name('neworders');
 Route::patch('/profile/edit','HomeController@update')->name('profile.update');
 Route::post('/add-category','CategoriesController@store')->name('categories.store');
 Route::post('/add-brand','BrandsController@store')->name('brands.store');
-Route::post('/neworder','ordersController@store')->name('order.store');
 Route::get('/products/manage','ProductsController@edit')->name('products.manage');
 Route::get('/products','ProductsController@index');
 Route::get('/products/{id}','ProductsController@show');
