@@ -37,5 +37,5 @@ Route::patch('/brand/edit/{brand}','BrandsController@update');
 Route::get('/category/delete/{category}','CategoriesController@delete');
 Route::get('/brand/delete/{brand}','BrandsController@delete');
 Route::get('/download/pdf/{hash_Id}','ordersController@createPDF');
-Route::post('/neworder','ordersController@store')->name('order.store');
+Route::post('/neworder','OrdersController@store')->name('order.store');
 
