@@ -182,7 +182,7 @@ function Example() {
 
     // for (i=0,i<table.row.lenght)
     return (
-    <form onSubmit={submitHandler} >
+    <form onSubmit={submitHandler} method='POST' >
       <div className="card w-100">
         <div className="card-header">
           Featured
