@@ -72,10 +72,10 @@ class OrdersController extends Controller
     	// dd($data);
     	return view('download.downloadPDF')->with('data',$data);
     }
-    public function createPDF($hash_Id){
+    public function createPDF($hash_Id){ 
     	$data = Order::where('hash_id',$hash_Id)->first();
     	view()->share('data',$data);
     	$pdf = PDF::loadView('download.PDF');
-    	return $pdf->download('order-success.pdf');
+    	return $pdf->('order-success.pdf');
     }
 }

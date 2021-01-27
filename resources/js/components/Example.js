@@ -109,12 +109,12 @@ function Example() {
 
     const submitHandler = async(e)=>{
         e.preventDefault()
-        console.log(formInput)
+        // console.log(formInput)
         try{
           const res = await axios.post('/neworder',formInput)
             if(res.status===200) {
              let hashId = res.data.message
-             console.log(res.data)
+            //  console.log(res.data)
              window.location.href= `/download-pdf/${hashId}`
            }
           

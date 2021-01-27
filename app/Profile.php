@@ -14,7 +14,9 @@ class Profile extends Model
     	$imagePath = $this->image ? $this->image :'reactlaravel_1608421945.jpeg';
     	// $imagePath =  '/storage/profile_images/'.$imagePath;
     	// dd($imagePath);
-    	// dd(asset('/storage/profile_images/noImage_1601421724.png'));
-    	return '/storage/profileImages/'.$imagePath;
+		// dd(asset('/storage/profile_images/noImage_1601421724.png'));
+		return '/images/profile.jpg'
+		// return asset('storage/profileImages/'.$imagePath);
+    	// return '/storage/profileImages/'.$imagePath;
     }
 }
