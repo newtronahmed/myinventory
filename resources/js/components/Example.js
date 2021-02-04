@@ -209,7 +209,7 @@ function Example() {
               </div>
             </div>
 
-                <table className="table" id='table' style={{overflow:'auto'}}>
+                <table className="table" id='table' style={{overflowX:'scroll'}}>
         <thead>
           <tr>
             <th scope="col">item </th>

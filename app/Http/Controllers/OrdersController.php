@@ -76,6 +76,6 @@ class OrdersController extends Controller
     	$data = Order::where('hash_id',$hash_Id)->first();
     	view()->share('data',$data);
     	$pdf = PDF::loadView('download.PDF');
-    	return $pdf->('order-success.pdf');
+    	return $pdf->download('order-success.pdf');
     }
 }

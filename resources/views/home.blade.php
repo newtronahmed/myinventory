@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
+    <div class="row justify-content-center mt-4">
         <!-- left sidebar -->
         <div class="col-md-4 shadow ">
             <div class="image d-flex justify-content-center">
