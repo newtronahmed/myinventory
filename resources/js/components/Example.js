@@ -53,8 +53,8 @@ function Example() {
           let discount = parseInt(formInput.discount)
          let perCentDiscount = discount / 100
           netTotal = subtotal - (subtotal*perCentDiscount)
-          netTotal = parseFloat(netTotal).toFixed(2)
-          console.log(netTotal)
+          netTotal = parseFloat(netTotal)
+        
          }
 
         let due = parseFloat(netTotal-paid)
