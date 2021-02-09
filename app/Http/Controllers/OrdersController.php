@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Order;
 use PDF;
-use Illuminate\Support\Facades\Hash;
+// use Illuminate\Support\Facades\Hash;
 class OrdersController extends Controller
 {
     public function create(){
@@ -68,14 +68,14 @@ class OrdersController extends Controller
     	return response()->json(['message'=>$order->hash_id,'order'=>$order],200);
     }
     public function show ($hash_Id){
-    	$data = Order::where('hash_id',$hash_Id)->first();
+    	$data= Order::where('hash_id',$hash_Id)->first();
     	// dd($data);
     	return view('download.downloadPDF')->with('data',$data);
     }
     public function createPDF($hash_Id){ 
     	$data = Order::where('hash_id',$hash_Id)->first();
     	view()->share('data',$data);
-    	$pdf = PDF::loadView('download.PDF');
+    	$pdf = PDF::loadView('download.PDF',$data);
     	return $pdf->download('order-success.pdf');
     }
 }

@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center mt-4">
+    <div class="row mt-4">
         <!-- left sidebar -->
         <div class="col-md-4 shadow ">
             <div class="image d-flex justify-content-center">
@@ -10,7 +10,7 @@
             </div>
             <!-- Profile -->
             <div>
-                <div class="lead">Profile</div>
+                <div class="lead p-2">Profile</div>
                 <div class="shadow-sm p-2 mb-1">Name: {{$profile->user->name}}</div>
                 <div class="shadow-sm p-2 mb-1">Description: {{$profile->description}}</div>
                 <div class="shadow-sm p-2 mb-1">Email: {{$profile->user->email}}</div>
@@ -24,15 +24,14 @@
             
         </div>
             <!-- Right Main bar-->
-        <div class="col-md-8 "  >
-            <div class="bg-white  h-100" >
+        <div class="col-md-8 w-100 "  >   
                 <div class="display-4">Welcome Back {{$profile->user->name}}</div>
                 <div class="mr-auto" >
                 <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</div> 
                 <a href="{{route('neworders')}}" class="btn btn-primary"> New orders</a>
                 
             </div> 
-            </div>
+           
             <!-- Brands and Products-->
             
         </div>

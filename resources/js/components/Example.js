@@ -57,7 +57,7 @@ function Example() {
           console.log(netTotal)
          }
 
-        let due = parseFloat(netTotal-paid).toFixed(2)
+        let due = parseFloat(netTotal-paid)
       setFormInput({...formInput,subtotal,netTotal,discount,due})
          
    },[formInput.products,formInput.discount,formInput.paid])
@@ -249,7 +249,7 @@ function Example() {
                   <input type="number" name='quantity' max={totalQuantity}  onChange={(e)=>handleTableChange(e,id)} value={quantity} 
                   className="form-control form-control-sm" id="inputEmail3" />
             </td>
-            <td className='bg-secondary'>
+            <td className=''>
                <input type="number" readOnly  name='price'  onChange={(e)=>handleTableChange(e,id)} value={price}
                 className="form-control form-control-sm" id="inputEmail3" />
             </td>

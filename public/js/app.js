@@ -66731,7 +66731,7 @@ function Example() {
       console.log(netTotal);
     }
 
-    var due = parseFloat(netTotal - paid).toFixed(2);
+    var due = parseFloat(netTotal - paid);
     setFormInput(_objectSpread(_objectSpread({}, formInput), {}, {
       subtotal: subtotal,
       netTotal: netTotal,
@@ -66817,36 +66817,36 @@ function Example() {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              e.preventDefault();
-              console.log(formInput);
-              _context2.prev = 2;
-              _context2.next = 5;
+              e.preventDefault(); // console.log(formInput)
+
+              _context2.prev = 1;
+              _context2.next = 4;
               return axios.post('/neworder', formInput);
 
-            case 5:
+            case 4:
               res = _context2.sent;
 
               if (res.status === 200) {
-                hashId = res.data.message; // console.log(res.data)
+                hashId = res.data.message; //  console.log(res.data)
 
                 window.location.href = "/download-pdf/".concat(hashId);
               }
 
-              _context2.next = 12;
+              _context2.next = 11;
               break;
 
-            case 9:
-              _context2.prev = 9;
-              _context2.t0 = _context2["catch"](2);
+            case 8:
+              _context2.prev = 8;
+              _context2.t0 = _context2["catch"](1);
               // setErrors([...errors,err])
               setErrors(_context2.t0.response.data.errors);
 
-            case 12:
+            case 11:
             case "end":
               return _context2.stop();
           }
         }
-      }, _callee2, null, [[2, 9]]);
+      }, _callee2, null, [[1, 8]]);
     }));
 
     return function submitHandler(_x3) {
@@ -66919,7 +66919,8 @@ function Example() {
   // for (i=0,i<table.row.lenght)
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("form", {
-    onSubmit: submitHandler
+    onSubmit: submitHandler,
+    method: "POST"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "card w-100"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
@@ -66972,7 +66973,7 @@ function Example() {
     className: "table",
     id: "table",
     style: {
-      overflow: 'auto'
+      overflowX: 'scroll'
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("thead", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
     scope: "col"
@@ -67035,7 +67036,7 @@ function Example() {
       className: "form-control form-control-sm",
       id: "inputEmail3"
     })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", {
-      className: "bg-secondary"
+      className: ""
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
       type: "number",
       readOnly: true,
