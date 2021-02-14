@@ -2,7 +2,7 @@ import React,{useState,useEffect} from 'react';
 import ReactDOM from 'react-dom';
 import useError from './useError'
 
-function Example() {
+function OrderForm() {
     // const [formData,setFormData] = useState({
 
     // })
@@ -62,14 +62,15 @@ function Example() {
          
    },[formInput.products,formInput.discount,formInput.paid])
 
-   const handleChange = (e) =>{
+  //  const handleChange = (e) =>{
         
-    const {name,value} = e.target
-        setFormInput({...formInput,[name]:value})   
+  //   const {name,value} = e.target
+  //       setFormInput({...formInput,[name]:value})   
 
-   }
-   const handleTableChange =  (e,id) =>{
-    e.preventDefault()
+  //  }
+   const handleTableChange =  (e, id=null) =>{
+
+    // e.preventDefault()
     // console.log(e.target.type)
  
     let {name,value} = e.target;
@@ -78,31 +79,41 @@ function Example() {
     if(e.target.type==='number'){
       value = parseInt(value)
     }
-    formInput.products.map( async (product,i)=>{
-      // console.log(product.id , id)
+    // if id is not null
+    if(!id){
+      const {name,value} = e.target
+     setFormInput({...formInput,[name]:value}) 
+    } else {
+      // if id is null
+      formInput.products.map( async (product,i)=>{
+        // console.log(product.id , id)
+  
+        if(product.id === id){
+      
+       let products = [...formInput.products]
+       let product = {...products[i]}
+       product[name]= value
+       // setFormInput({...formInput,products: products})
+           if(e.target.type==='select-one' && value !=='choose'){
+            // console.log(products[i].item)
+            // console.log('ama live')
+            
+            const response = await axios.get('/products/'+value) 
+           
+            product['price']= response.data.price
+            product['totalQuantity']= parseInt(response.data.quantity) 
+           }
+           product['total'] = (product['price']* product['quantity'])
+           products[i] = product
+          setFormInput({...formInput,products})
+      // setFormInput({...formInput,products: [products[i][name]:value ,...products] })  
+        }
+   
+      })
+    }
+     
 
-      if(product.id === id){
-    
-     let products = [...formInput.products]
-     let product = {...products[i]}
-     product[name]= value
-     // setFormInput({...formInput,products: products})
-         if(e.target.type==='select-one' && value !=='choose'){
-          // console.log(products[i].item)
-          // console.log('ama live')
-          
-          const response = await axios.get('/products/'+value) 
-         
-          product['price']= response.data.price
-          product['totalQuantity']= parseInt(response.data.quantity) 
-         }
-         product['total'] = (product['price']*product['quantity'])
-         products[i] = product
-        setFormInput({...formInput,products})
-    // setFormInput({...formInput,products: [products[i][name]:value ,...products] })  
-      }
- 
-    })
+   
 
     
    }
@@ -133,7 +144,7 @@ function Example() {
      setFormInput({...formInput,products: [...formInput.products,{id:newId,item:'',price:0,total:0,quantity:0,totalQuantity:0}]})
     }
     const remove =(e)=>{
-        e.preventDefault()
+        // e.preventDefault()
        // remove last product object from array
         let products = [...formInput.products]
          products.pop()
@@ -177,6 +188,7 @@ function Example() {
         },
    
     ]
+    
     // const {item,price,quantity,totalQuantity,id} = formInput.product
     // let total = price * Quantity
 
@@ -185,7 +197,7 @@ function Example() {
     <form onSubmit={submitHandler} method='POST' >
       <div className="card w-100">
         <div className="card-header">
-          Featured
+          Order Form
         </div>
       <div className='p-3'>
             <div className="form-group row">
@@ -199,6 +211,7 @@ function Example() {
               <label htmlFor="inputEmail3"  className="col-sm-2 col-form-label">Address</label>
               <div className="col-sm-8">
                 <input type="text" name='address' onChange={handleChange} value={address} className="form-control" id="inputEmail3" />
+                {renderErrorFor('address')}
               </div>
             </div>
             <div className="form-group row">
@@ -224,14 +237,12 @@ function Example() {
                 const {item,price,quantity,totalQuantity,id,total} = product
                // total = price * quantity
 
-
-
-               return (<tr key={i} >
-              
+               return (
+            <tr key={i} >
             <td>
               <div className="form-group">
                  
-                  { loading? <div className="spinner-border text-info" role="status"><span className="sr-only">Loading...</span></div>: (<select className="form-control form-control-sm" value={item} name='item' onChange={(e)=>handleTableChange(e,id)} 
+                  { loading ? <div className="spinner-border text-info" role="status"><span className="sr-only">Loading...</span></div>: (<select className="form-control form-control-sm" value={item} name='item' onChange={(e)=>handleTableChange(e,id)} 
                   id="exampleFormControlSelect1">
 
                   <option >choose</option>
@@ -273,7 +284,9 @@ function Example() {
                       <label htmlFor="inputEmail3" className="col-sm-2 col-form-label">{detail.title}</label>
                       <div className="col-sm-8">
                         <input type="text" className="form-control" name={detail.name} onChange={handleChange} id="inputEmail3" value={detail.value} />
+                        {renderErrorFor(detail.name)}
                       </div>
+                    
                   </div>
                       )
               })
@@ -288,7 +301,7 @@ function Example() {
               {renderErrorFor('payment_method')}
             </div>
       </div>
-      <div className='card-footer'>
+      <div className='card-footer d-flex justify-content-center'>
         <button type='submit' className='btn btn-success'>submit</button>
       </div>
       </div>
@@ -300,6 +313,6 @@ function Example() {
 
 export default Example;
 
-if (document.getElementById('example')) {
-    ReactDOM.render(<Example />, document.getElementById('example'));
+if (document.getElementById('order-form')) {
+    ReactDOM.render(<OrderForm />, document.getElementById('order-form'));
 }

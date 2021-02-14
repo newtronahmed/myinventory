@@ -3,6 +3,7 @@ const useError = (initial)=>{
 	const [errors,setErrors] = useState(initial)
 	const hasErrorFor =(field)=>{
 		if(errors) return !!errors[field]
+		error?.[field]
 	}
 	const renderErrorFor = (field)=>{
 		if(hasErrorFor(field)){

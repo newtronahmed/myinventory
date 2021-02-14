@@ -66657,7 +66657,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-function Example() {
+function OrderForm() {
   // const [formData,setFormData] = useState({
   // })
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])({
@@ -66727,8 +66727,7 @@ function Example() {
 
       var perCentDiscount = _discount / 100;
       netTotal = subtotal - subtotal * perCentDiscount;
-      netTotal = parseFloat(netTotal).toFixed(2);
-      console.log(netTotal);
+      netTotal = parseFloat(netTotal);
     }
 
     var due = parseFloat(netTotal - paid);
@@ -66738,76 +66737,82 @@ function Example() {
       discount: discount,
       due: due
     }));
-  }, [formInput.products, formInput.discount, formInput.paid]);
+  }, [formInput.products, formInput.discount, formInput.paid]); //  const handleChange = (e) =>{
+  //   const {name,value} = e.target
+  //       setFormInput({...formInput,[name]:value})   
+  //  }
 
-  var handleChange = function handleChange(e) {
+  var handleTableChange = function handleTableChange(e) {
+    var id = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+    // e.preventDefault()
+    // console.log(e.target.type)
     var _e$target = e.target,
         name = _e$target.name,
-        value = _e$target.value;
-    setFormInput(_objectSpread(_objectSpread({}, formInput), {}, _defineProperty({}, name, value)));
-  };
-
-  var handleTableChange = function handleTableChange(e, id) {
-    e.preventDefault(); // console.log(e.target.type)
-
-    var _e$target2 = e.target,
-        name = _e$target2.name,
-        value = _e$target2.value; // console.log(value)
+        value = _e$target.value; // console.log(value)
     // parse to numbers before
 
     if (e.target.type === 'number') {
       value = parseInt(value);
-    }
+    } // if id is not null
 
-    formInput.products.map( /*#__PURE__*/function () {
-      var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(product, i) {
-        var products, _product, response;
 
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                if (!(product.id === id)) {
-                  _context.next = 13;
-                  break;
-                }
+    if (!id) {
+      var _e$target2 = e.target,
+          _name = _e$target2.name,
+          _value = _e$target2.value;
+      setFormInput(_objectSpread(_objectSpread({}, formInput), {}, _defineProperty({}, _name, _value)));
+    } else {
+      // if id is null
+      formInput.products.map( /*#__PURE__*/function () {
+        var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(product, i) {
+          var products, _product, response;
 
-                products = _toConsumableArray(formInput.products);
-                _product = _objectSpread({}, products[i]);
-                _product[name] = value; // setFormInput({...formInput,products: products})
+          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+            while (1) {
+              switch (_context.prev = _context.next) {
+                case 0:
+                  if (!(product.id === id)) {
+                    _context.next = 13;
+                    break;
+                  }
 
-                if (!(e.target.type === 'select-one' && value !== 'choose')) {
-                  _context.next = 10;
-                  break;
-                }
+                  products = _toConsumableArray(formInput.products);
+                  _product = _objectSpread({}, products[i]);
+                  _product[name] = value; // setFormInput({...formInput,products: products})
 
-                _context.next = 7;
-                return axios.get('/products/' + value);
+                  if (!(e.target.type === 'select-one' && value !== 'choose')) {
+                    _context.next = 10;
+                    break;
+                  }
 
-              case 7:
-                response = _context.sent;
-                _product['price'] = response.data.price;
-                _product['totalQuantity'] = parseInt(response.data.quantity);
+                  _context.next = 7;
+                  return axios.get('/products/' + value);
 
-              case 10:
-                _product['total'] = _product['price'] * _product['quantity'];
-                products[i] = _product;
-                setFormInput(_objectSpread(_objectSpread({}, formInput), {}, {
-                  products: products
-                })); // setFormInput({...formInput,products: [products[i][name]:value ,...products] })  
+                case 7:
+                  response = _context.sent;
+                  _product['price'] = response.data.price;
+                  _product['totalQuantity'] = parseInt(response.data.quantity);
 
-              case 13:
-              case "end":
-                return _context.stop();
+                case 10:
+                  _product['total'] = _product['price'] * _product['quantity'];
+                  products[i] = _product;
+                  setFormInput(_objectSpread(_objectSpread({}, formInput), {}, {
+                    products: products
+                  })); // setFormInput({...formInput,products: [products[i][name]:value ,...products] })  
+
+                case 13:
+                case "end":
+                  return _context.stop();
+              }
             }
-          }
-        }, _callee);
-      }));
+          }, _callee);
+        }));
 
-      return function (_x, _x2) {
-        return _ref.apply(this, arguments);
-      };
-    }());
+        return function (_x, _x2) {
+          return _ref.apply(this, arguments);
+        };
+      }());
+    }
   };
 
   var submitHandler = /*#__PURE__*/function () {
@@ -66870,8 +66875,8 @@ function Example() {
   };
 
   var remove = function remove(e) {
-    e.preventDefault(); // remove last product object from array
-
+    // e.preventDefault()
+    // remove last product object from array
     var products = _toConsumableArray(formInput.products);
 
     products.pop();
@@ -66925,7 +66930,7 @@ function Example() {
     className: "card w-100"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "card-header"
-  }, "Featured"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+  }, "Order Form"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "p-3"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "form-group row"
@@ -66955,7 +66960,7 @@ function Example() {
     value: address,
     className: "form-control",
     id: "inputEmail3"
-  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+  }), renderErrorFor('address'))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "form-group row"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
     htmlFor: "inputEmail3",
@@ -67084,7 +67089,7 @@ function Example() {
       onChange: handleChange,
       id: "inputEmail3",
       value: detail.value
-    })));
+    }), renderErrorFor(detail.name)));
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "form-group row"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
@@ -67114,7 +67119,7 @@ function Example() {
     onChange: handleChange,
     value: "credit_card"
   }), "Credit Card")), renderErrorFor('payment_method'))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-    className: "card-footer"
+    className: "card-footer d-flex justify-content-center"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
     type: "submit",
     className: "btn btn-success"
@@ -67123,8 +67128,8 @@ function Example() {
 
 /* harmony default export */ __webpack_exports__["default"] = (Example);
 
-if (document.getElementById('example')) {
-  react_dom__WEBPACK_IMPORTED_MODULE_2___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Example, null), document.getElementById('example'));
+if (document.getElementById('order-form')) {
+  react_dom__WEBPACK_IMPORTED_MODULE_2___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(OrderForm, null), document.getElementById('order-form'));
 }
 
 /***/ }),
@@ -67161,7 +67166,10 @@ var useError = function useError(initial) {
       setErrors = _useState2[1];
 
   var hasErrorFor = function hasErrorFor(field) {
+    var _error;
+
     if (errors) return !!errors[field];
+    (_error = error) === null || _error === void 0 ? void 0 : _error[field];
   };
 
   var renderErrorFor = function renderErrorFor(field) {
