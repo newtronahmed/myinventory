@@ -26,6 +26,7 @@ function OrderForm() {
    useEffect(()=>{
      getProductsList()
    },[])
+   
    const getProductsList=()=>{
      setLoading(true)
       axios.get('/products')
@@ -62,7 +63,7 @@ function OrderForm() {
          
    },[formInput.products,formInput.discount,formInput.paid])
 
-  //  const handleChange = (e) =>{
+  //  const handleTableChange = (e) =>{
         
   //   const {name,value} = e.target
   //       setFormInput({...formInput,[name]:value})   
@@ -114,7 +115,7 @@ function OrderForm() {
      
 
    
-
+handleTableChange
     
    }
 
@@ -203,26 +204,26 @@ function OrderForm() {
             <div className="form-group row">
               <label htmlFor="inputEmail3"  className="col-sm-2 col-form-label">Customer Name</label>
               <div className="col-sm-8">
-                <input type="text" name='customerName' onChange={handleChange} value={customerName} className="form-control" id="inputEmail3" />
+                <input type="text" name='customerName' onChange={handleTableChange} value={customerName} className="form-control" id="inputEmail3" />
               {renderErrorFor('customerName')}
               </div>
             </div>
             <div className="form-group row">
               <label htmlFor="inputEmail3"  className="col-sm-2 col-form-label">Address</label>
               <div className="col-sm-8">
-                <input type="text" name='address' onChange={handleChange} value={address} className="form-control" id="inputEmail3" />
+                <input type="text" name='address' onChange={handleTableChange} value={address} className="form-control" id="inputEmail3" />
                 {renderErrorFor('address')}
               </div>
             </div>
             <div className="form-group row">
               <label htmlFor="inputEmail3"  className="col-sm-2 col-form-label">Phone Number</label>
               <div className="col-sm-8">
-                <input type="text" name='phone' onChange={handleChange} value={phone} className="form-control" id="inputEmail3" />
+                <input type="text" name='phone' onChange={handleTableChange} value={phone} className="form-control" id="inputEmail3" />
                 {renderErrorFor('phone')}
               </div>
             </div>
-
-                <table className="table" id='table' style={{overflowX:'scroll'}}>
+      <div class='table-responsive-md'>
+      <table className="table" id='table'>
         <thead>
           <tr>
             <th scope="col">item </th>
@@ -232,14 +233,14 @@ function OrderForm() {
             <th scope="col">Total</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody >
               {formInput.products.map((product,i)=>{
                 const {item,price,quantity,totalQuantity,id,total} = product
                // total = price * quantity
 
                return (
             <tr key={i} >
-            <td>
+            <td >
               <div className="form-group">
                  
                   { loading ? <div className="spinner-border text-info" role="status"><span className="sr-only">Loading...</span></div>: (<select className="form-control form-control-sm" value={item} name='item' onChange={(e)=>handleTableChange(e,id)} 
@@ -275,15 +276,16 @@ function OrderForm() {
           
         </tbody>
       </table>
+      </div>
 
-      <p className='mx-auto'><button type='button' className='w-30 btn btn-info text-center' onClick={add}>Add</button><button onClick={remove} type='button' className='w-30 btn btn-info text-center'>Remove</button></p>
+      <p className='mx-auto my-2'><button type='button' className='w-30 btn btn-info text-center' onClick={add}>Add</button><button onClick={remove} type='button' className='w-30 btn btn-info text-center'>Remove</button></p>
           {
               details.map((detail,ind)=>{
                   return (
                       <div className="form-group row" key={ind}>
                       <label htmlFor="inputEmail3" className="col-sm-2 col-form-label">{detail.title}</label>
                       <div className="col-sm-8">
-                        <input type="text" className="form-control" name={detail.name} onChange={handleChange} id="inputEmail3" value={detail.value} />
+                        <input type="text" className="form-control" name={detail.name} onChange={handleTableChange} id="inputEmail3" value={detail.value} />
                         {renderErrorFor(detail.name)}
                       </div>
                     
@@ -294,9 +296,9 @@ function OrderForm() {
           <div className="form-group row">
               <label htmlFor="inputEmail3"  className="col-sm-2 col-form-label">Payment Method</label>
               <div className="col-sm-8">
-                 <label className="radio-inline mx-2"><input type="radio"  name="payment_method" onChange={handleChange}  value='cheque' />Cheque</label>
-                <label className="radio-inline mx-2"><input type="radio"  name="payment_method" onChange={handleChange}  value='cash' />Cash</label>
-               <label className="radio-inline mx-2"><input type="radio" name="payment_method" onChange={handleChange}  value='credit_card' />Credit Card</label>
+                 <label className="radio-inline mx-2"><input type="radio"  name="payment_method" onChange={handleTableChange}  value='cheque' />Cheque</label>
+                <label className="radio-inline mx-2"><input type="radio"  name="payment_method" onChange={handleTableChange}  value='cash' />Cash</label>
+               <label className="radio-inline mx-2"><input type="radio" name="payment_method" onChange={handleTableChange}  value='credit_card' />Credit Card</label>
               </div>
               {renderErrorFor('payment_method')}
             </div>
@@ -311,7 +313,7 @@ function OrderForm() {
     );
 }
 
-export default Example;
+export default OrderForm;
 
 if (document.getElementById('order-form')) {
     ReactDOM.render(<OrderForm />, document.getElementById('order-form'));

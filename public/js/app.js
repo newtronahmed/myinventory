@@ -66554,7 +66554,7 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
  */
 
 
-__webpack_require__(/*! ./components/Example */ "./resources/js/components/Example.js"); // $(document).ready(function(){
+__webpack_require__(/*! ./components/OrderForm */ "./resources/js/components/OrderForm.js"); // $(document).ready(function(){
 // 	console.log('jquery loaded from app Js')
 // })
 
@@ -66605,10 +66605,10 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /***/ }),
 
-/***/ "./resources/js/components/Example.js":
-/*!********************************************!*\
-  !*** ./resources/js/components/Example.js ***!
-  \********************************************/
+/***/ "./resources/js/components/OrderForm.js":
+/*!**********************************************!*\
+  !*** ./resources/js/components/OrderForm.js ***!
+  \**********************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -66737,7 +66737,7 @@ function OrderForm() {
       discount: discount,
       due: due
     }));
-  }, [formInput.products, formInput.discount, formInput.paid]); //  const handleChange = (e) =>{
+  }, [formInput.products, formInput.discount, formInput.paid]); //  const handleTableChange = (e) =>{
   //   const {name,value} = e.target
   //       setFormInput({...formInput,[name]:value})   
   //  }
@@ -66813,6 +66813,8 @@ function OrderForm() {
         };
       }());
     }
+
+    handleTableChange;
   };
 
   var submitHandler = /*#__PURE__*/function () {
@@ -66942,7 +66944,7 @@ function OrderForm() {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
     type: "text",
     name: "customerName",
-    onChange: handleChange,
+    onChange: handleTableChange,
     value: customerName,
     className: "form-control",
     id: "inputEmail3"
@@ -66956,7 +66958,7 @@ function OrderForm() {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
     type: "text",
     name: "address",
-    onChange: handleChange,
+    onChange: handleTableChange,
     value: address,
     className: "form-control",
     id: "inputEmail3"
@@ -66970,16 +66972,15 @@ function OrderForm() {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
     type: "text",
     name: "phone",
-    onChange: handleChange,
+    onChange: handleTableChange,
     value: phone,
     className: "form-control",
     id: "inputEmail3"
-  }), renderErrorFor('phone'))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("table", {
+  }), renderErrorFor('phone'))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+    "class": "table-responsive-md"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("table", {
     className: "table",
-    id: "table",
-    style: {
-      overflowX: 'scroll'
-    }
+    id: "table"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("thead", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
     scope: "col"
   }, "item "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
@@ -67063,8 +67064,8 @@ function OrderForm() {
       className: "form-control form-control-sm",
       id: "inputEmail3"
     })));
-  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", {
-    className: "mx-auto"
+  })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", {
+    className: "mx-auto my-2"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
     type: "button",
     className: "w-30 btn btn-info text-center",
@@ -67086,7 +67087,7 @@ function OrderForm() {
       type: "text",
       className: "form-control",
       name: detail.name,
-      onChange: handleChange,
+      onChange: handleTableChange,
       id: "inputEmail3",
       value: detail.value
     }), renderErrorFor(detail.name)));
@@ -67102,21 +67103,21 @@ function OrderForm() {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
     type: "radio",
     name: "payment_method",
-    onChange: handleChange,
+    onChange: handleTableChange,
     value: "cheque"
   }), "Cheque"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
     className: "radio-inline mx-2"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
     type: "radio",
     name: "payment_method",
-    onChange: handleChange,
+    onChange: handleTableChange,
     value: "cash"
   }), "Cash"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
     className: "radio-inline mx-2"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
     type: "radio",
     name: "payment_method",
-    onChange: handleChange,
+    onChange: handleTableChange,
     value: "credit_card"
   }), "Credit Card")), renderErrorFor('payment_method'))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "card-footer d-flex justify-content-center"
@@ -67126,7 +67127,7 @@ function OrderForm() {
   }, "submit"))));
 }
 
-/* harmony default export */ __webpack_exports__["default"] = (Example);
+/* harmony default export */ __webpack_exports__["default"] = (OrderForm);
 
 if (document.getElementById('order-form')) {
   react_dom__WEBPACK_IMPORTED_MODULE_2___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(OrderForm, null), document.getElementById('order-form'));

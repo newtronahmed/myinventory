@@ -12,7 +12,7 @@ require('./bootstrap');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-require('./components/Example');
+require('./components/OrderForm');
 // $(document).ready(function(){
 // 	console.log('jquery loaded from app Js')
 // })
