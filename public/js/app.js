@@ -67072,12 +67072,12 @@ function OrderForm() {
     className: "mx-auto  my-2"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
     type: "button",
-    className: "mx-2 btn btn-info text-center",
+    className: "mx-2 btn btn-primary text-center",
     onClick: add
   }, "Add"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
     onClick: remove,
     type: "button",
-    className: "w-30 btn btn-info mx-2 text-center"
+    className: "w-30 btn btn-primary mx-2 text-center"
   }, "Remove")), details.map(function (detail, ind) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
       className: "form-group row",

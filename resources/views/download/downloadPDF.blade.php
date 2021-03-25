@@ -112,7 +112,7 @@
 </head>
 
 <body>
-	<button class="btn btn-success"><a href="/download/pdf/{{$data->hash_id}}">Download</a></button>
+	<button class="btn btn-success"><a href="/download/pdf/{{$data->hash_id}}">Download</a> <a href="{{route('home')}}">Go back &#8592;</a></button>
     <div class="invoice-box">
         <table cellpadding="0" cellspacing="0">
             <tr class="top">

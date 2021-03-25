@@ -287,8 +287,8 @@ handleTableChange
       </table>
       </div>
 
-      <p className='mx-auto  my-2'><button type='button' className='mx-2 btn btn-info text-center' onClick={add}>Add</button>
-      <button onClick={remove} type='button' className='w-30 btn btn-info mx-2 text-center'>Remove</button></p>
+      <p className='mx-auto  my-2'><button type='button' className='mx-2 btn btn-primary text-center' onClick={add}>Add</button>
+      <button onClick={remove} type='button' className='w-30 btn btn-primary mx-2 text-center'>Remove</button></p>
           {
               details.map((detail,ind)=>{
                   return (

@@ -11,7 +11,7 @@
             <!-- Profile -->
             <div>
                 <div class="lead p-2">Profile</div>
-                <div class="shadow-sm p-2 mb-1">Name: {{$profile->user->name}}</div>
+                <div class="shadow-sm p-2 mb-1">Name: {{$profile->title}}</div>
                 <div class="shadow-sm p-2 mb-1">Description: {{$profile->description}}</div>
                 <div class="shadow-sm p-2 mb-1">Email: {{$profile->user->email}}</div>
                 <a href="{{route('profile.edit')}}" class="btn btn-primary btn-sm mb-2">Edit Profile +</a>
@@ -31,7 +31,7 @@
                 <div class="lead"> {{$profile->user->name}}</div>
                 <div class="mr-auto" >
                 <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</div> 
-                <a href="{{route('neworders')}}" class="btn btn-lg btn-primary"> New orders</a>
+                <a href="{{route('neworders')}}" class="btn btn-lg btn-primary"> New orders +</a>
                 </div>
             </div>
             </div> 
@@ -53,7 +53,7 @@
     <div class="row py-3">
         <!-- Categories --> 
             <div class="col-md-4 mt-2">
-                <div class="card shadow rounded">
+                <div class="card shadow rounded grow">
                    <div class="card-body">
                     <h5 class="card-title">Categories</h5>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p>
@@ -65,7 +65,7 @@
                 </div>
             </div>
             <div class="col-md-4 mt-2">
-                <div class="card shadow pointer rounded">
+                <div class="card shadow pointer rounded grow">
                    <div class="card-body">
                     <h5 class="card-title">Brands</h5>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p>
@@ -77,7 +77,7 @@
                 </div>
             </div>
             <div class="col-md-4 mt-2">
-                <div class="card shadow cursor-pointer rounded"> 
+                <div class="card shadow cursor-pointer rounded grow"> 
                    <div class="card-body">
                     <h5 class="card-title">Products</h5>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p>

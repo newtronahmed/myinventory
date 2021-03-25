@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 <div class="container">
-	<a href="{{route('home')}}">Go back</a>
+	<a href="{{route('home')}}">Go back &#8592;</a>
 	<form action="{{route('profile.update')}}" enctype="multipart/form-data" method="post">
 		@csrf
 		@method('PATCH')

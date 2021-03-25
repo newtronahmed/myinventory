@@ -4,6 +4,13 @@
 // Variables
 @import 'variables';
 
+.grow{
+	transition: all 0.1s;
+	cursor: pointer;
+}
+.grow:hover{
+	transform: scale(1.1);
+}
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 .table td {

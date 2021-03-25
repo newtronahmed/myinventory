@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
-  <a href="{{route('home')}}">Go back</a>
-  <table class="table " id='table' style="overflow: auto;">
+  <a href="{{route('home')}}">Go back &#8592;</a>
+  <table class="table table-bordered " id='table' style="overflow: auto;">
  	<thead class="w-100">
       <tr>
         <th scope="col">Brands</th>
