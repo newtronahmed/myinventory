@@ -24,23 +24,36 @@
             
         </div>
             <!-- Right Main bar-->
-        <div class="col-md-8 w-100 "  >   
-                <div class="display-4">Welcome Back {{$profile->user->name}}</div>
+        <div class="col-md-8 w-100 "  > 
+            <div class="rounded"  style="background-color: coral;">
+            <div class=" rounded p-3" style="background-color:steelblue;color:white; clip-path: polygon(0 0,63% 0, 80% 100%,0 100%)">  
+                <h2 >Welcome Back</h2>
+                <div class="lead"> {{$profile->user->name}}</div>
                 <div class="mr-auto" >
                 <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</div> 
-                <a href="{{route('neworders')}}" class="btn btn-primary"> New orders</a>
-                
+                <a href="{{route('neworders')}}" class="btn btn-lg btn-primary"> New orders</a>
+                </div>
+            </div>
             </div> 
-           
-            <!-- Brands and Products-->
+            <h2 class="text-center py-2 mt-2">Recent Orders</h2>
             
+            @foreach ($recentOrders as $order)
+
+                <div class="card">
+                    <div class="card-body d-flex justify-content-between">
+                        <div class="card-text">{{$order->hash_id}}</div>
+                    <div class="card-text">Ghc{{$order->total}}</div>
+                    </div>
+                    
+                </div>
+            @endforeach
         </div>
     </div>
    
     <div class="row py-3">
         <!-- Categories --> 
-            <div class="col-md-4">
-                <div class="card shadow">
+            <div class="col-md-4 mt-2">
+                <div class="card shadow rounded">
                    <div class="card-body">
                     <h5 class="card-title">Categories</h5>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p>
@@ -51,8 +64,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="card shadow">
+            <div class="col-md-4 mt-2">
+                <div class="card shadow pointer rounded">
                    <div class="card-body">
                     <h5 class="card-title">Brands</h5>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p>
@@ -63,8 +76,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="card shadow">
+            <div class="col-md-4 mt-2">
+                <div class="card shadow cursor-pointer rounded"> 
                    <div class="card-body">
                     <h5 class="card-title">Products</h5>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p>

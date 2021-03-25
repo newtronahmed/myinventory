@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Profile;
 use App\Category;
 use App\Brand;
+use App\Order;
 
 class HomeController extends Controller
 {
@@ -29,7 +30,9 @@ class HomeController extends Controller
         $profile = auth()->user()->profile;
         $categories = Category::all();
         $brands = Brand::all();
-        return view('home',compact('profile','categories','brands'));
+        $recentOrders = Order::latest()->take(5)->get();
+        // dd($recentOrders);
+        return view('home',compact('profile','categories','brands','recentOrders'));
     }
     public function edit(){
         $profile = auth()->user()->profile;
@@ -70,7 +73,7 @@ class HomeController extends Controller
        //  'title'=>$validated['title'],
        // ]);
 
-        return redirect('/')->with(['status'=>'successfully updated my bros']);
+        return redirect('/')->with(['status'=>'successfully updated']);
     }
 
 

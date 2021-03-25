@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+<a href="{{route('home')}}">Go back</a>
   <table class="table " id='table' style="overflow: auto;">
  	<thead class="w-100">
       <tr>

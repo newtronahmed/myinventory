@@ -66677,7 +66677,8 @@ function OrderForm() {
     due: 0,
     address: '',
     phone: '',
-    payment_method: ''
+    payment_method: '' // full_payment:false,
+
   }),
       _useState2 = _slicedToArray(_useState, 2),
       formInput = _useState2[0],
@@ -66730,7 +66731,8 @@ function OrderForm() {
       netTotal = parseFloat(netTotal);
     }
 
-    var due = parseFloat(netTotal - paid);
+    var due = parseFloat(netTotal - paid); // let full_payment= due ===0 ? true : false;
+
     setFormInput(_objectSpread(_objectSpread({}, formInput), {}, {
       subtotal: subtotal,
       netTotal: netTotal,
@@ -66879,6 +66881,8 @@ function OrderForm() {
   var remove = function remove(e) {
     // e.preventDefault()
     // remove last product object from array
+    if (formInput.products.length === 1) return;
+
     var products = _toConsumableArray(formInput.products);
 
     products.pop();
@@ -66925,7 +66929,7 @@ function OrderForm() {
   // let total = price * Quantity
   // for (i=0,i<table.row.lenght)
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("form", {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("form", {
     onSubmit: submitHandler,
     method: "POST"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
@@ -67065,15 +67069,15 @@ function OrderForm() {
       id: "inputEmail3"
     })));
   })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", {
-    className: "mx-auto my-2"
+    className: "mx-auto  my-2"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
     type: "button",
-    className: "w-30 btn btn-info text-center",
+    className: "mx-2 btn btn-info text-center",
     onClick: add
   }, "Add"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
     onClick: remove,
     type: "button",
-    className: "w-30 btn btn-info text-center"
+    className: "w-30 btn btn-info mx-2 text-center"
   }, "Remove")), details.map(function (detail, ind) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
       className: "form-group row",
@@ -67124,7 +67128,7 @@ function OrderForm() {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
     type: "submit",
     className: "btn btn-success"
-  }, "submit"))));
+  }, "submit")))));
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (OrderForm);

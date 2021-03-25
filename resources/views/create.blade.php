@@ -2,7 +2,8 @@
 
 @section('content')
 <div class="container">
-	<div id='order-form'></div>	
+	<a class="py-2" href="{{route('home')}}">Go back </a>
+	<div id='order-form' />	
 </div>
 
 @endsection

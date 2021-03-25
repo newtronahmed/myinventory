@@ -17,6 +17,7 @@ function OrderForm() {
     address:'',
     phone:'',
     payment_method:'',
+    // full_payment:false,
    })
    const [setErrors,renderErrorFor] = useError([])
    // const [errors,setErrors] = useState([])
@@ -59,6 +60,7 @@ function OrderForm() {
          }
 
         let due = parseFloat(netTotal-paid)
+      // let full_payment= due ===0 ? true : false;
       setFormInput({...formInput,subtotal,netTotal,discount,due})
          
    },[formInput.products,formInput.discount,formInput.paid])
@@ -88,7 +90,11 @@ function OrderForm() {
       // if id is null
       formInput.products.map( async (product,i)=>{
         // console.log(product.id , id)
-  
+        // const index = formInput.products.findIndex(each=>each.id===id)
+        // if(index !== -1){
+        //   let product = products[i]
+        //   product.name = value
+        // }
         if(product.id === id){
       
        let products = [...formInput.products]
@@ -147,9 +153,10 @@ handleTableChange
     const remove =(e)=>{
         // e.preventDefault()
        // remove last product object from array
+       if(formInput.products.length === 1 ) return;
         let products = [...formInput.products]
          products.pop()
-        setFormInput({...formInput,products:products})
+        setFormInput({...formInput,products})
     }
     
    
@@ -195,6 +202,8 @@ handleTableChange
 
     // for (i=0,i<table.row.lenght)
     return (
+      <>
+
     <form onSubmit={submitHandler} method='POST' >
       <div className="card w-100">
         <div className="card-header">
@@ -278,7 +287,8 @@ handleTableChange
       </table>
       </div>
 
-      <p className='mx-auto my-2'><button type='button' className='w-30 btn btn-info text-center' onClick={add}>Add</button><button onClick={remove} type='button' className='w-30 btn btn-info text-center'>Remove</button></p>
+      <p className='mx-auto  my-2'><button type='button' className='mx-2 btn btn-info text-center' onClick={add}>Add</button>
+      <button onClick={remove} type='button' className='w-30 btn btn-info mx-2 text-center'>Remove</button></p>
           {
               details.map((detail,ind)=>{
                   return (
@@ -309,6 +319,7 @@ handleTableChange
       </div>
       
 </form> 
+</>
         
     );
 }

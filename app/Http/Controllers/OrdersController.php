@@ -77,5 +77,6 @@ class OrdersController extends Controller
     	view()->share('data',$data);
     	$pdf = PDF::loadView('download.PDF',$data);
     	return $pdf->download('order-success.pdf');
-    }
+	}
+	
 }
