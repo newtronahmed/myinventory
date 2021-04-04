@@ -34,6 +34,7 @@ function OrderForm() {
       .then(response=>{
       setProductSelection([...response.data])
       setLoading(false)
+     
       })
       .catch(err=>{
         setErrors([...errors,err.message])
@@ -128,6 +129,7 @@ handleTableChange
     const submitHandler = async(e)=>{
         e.preventDefault()
         // console.log(formInput)
+        
         try{
           const res = await axios.post('/neworder',formInput)
             if(res.status===200) {
@@ -255,7 +257,6 @@ handleTableChange
                   { loading ? <div className="spinner-border text-info" role="status"><span className="sr-only">Loading...</span></div>: (<select className="form-control form-control-sm" value={item} name='item' onChange={(e)=>handleTableChange(e,id)} 
                   id="exampleFormControlSelect1">
 
-                  <option >choose</option>
                     {  productSelection.map(each=>{
                       return <option key={each.id}   value={each.id}>{each.name}</option>
                     })}

@@ -38,11 +38,14 @@
             <h2 class="text-center py-2 mt-2">Recent Orders</h2>
             
             @foreach ($recentOrders as $order)
-
                 <div class="card">
-                    <div class="card-body d-flex justify-content-between">
+                    <div class="card-body row">
+                    <div class="col-md-6">
                         <div class="card-text">{{$order->hash_id}}</div>
-                    <div class="card-text">Ghc{{$order->total}}</div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card-text">Ghc{{$order->total}}</div>
+                    </div>
                     </div>
                     
                 </div>
